@@ -4,7 +4,18 @@
  * @param {string} string
  * @returns {string}
  */
-export const replaceZAndVFromString = (string) => {};
+export const replaceZAndVFromString = (string) => {
+  let str = '';
+  for(let count = 0; count < string.length; count++) {
+    if((string[count] === 'v') || (string[count] === 'z') || (string[count] === 'V') || (string[count] === 'Z')) {
+      str += '*';
+      continue;
+    }
+    str += `${string[count]}`;
+  }
+  string = str;
+  return string;
+};
 
 /**
  * Функция должна принять 3 аргумента и все строки. Мы передаем строку,
@@ -16,7 +27,16 @@ export const replaceZAndVFromString = (string) => {};
  * @param {string} newWord
  * @returns {string}
  */
-export const changeWord = (string, word, newWord) => {};
+export const changeWord = (string, word, newWord) => {
+  let str = '';
+  if(!string.includes(word)){
+    return string;
+  }
+  str = `${string.slice(0, string.indexOf(word))}` +
+    `${newWord}${string.slice((string.indexOf(word) + word.length), string.length)}`;
+  string = str;
+  return string;
+};
 
 /**
  * Должна вернуть строку(1 аргумент) на обрезанную по длине(2 аргумент, число)
@@ -24,7 +44,10 @@ export const changeWord = (string, word, newWord) => {};
  * @param {number} length
  * @returns {string}
  */
-export const truncate = (string, length) => {};
+export const truncate = (string, length) => {
+  string = `${string.slice(0, 3)}`;
+  return string;
+};
 
 /**
  * Принимает строку в первом аргументе, и символ во втором
@@ -37,7 +60,17 @@ export const truncate = (string, length) => {};
  * @param {string} symbol
  * @returns {number}
  */
-export const quantityOfSymbols = (string, symbol) => {};
+export const quantityOfSymbols = (string, symbol) => {
+  let numberOfCharacters = 0;
+  string = string.toLocaleLowerCase();
+  symbol = symbol.toLocaleLowerCase();
+  for(let count = 0; count < string.length; count++) {
+    if(string[count] === symbol) {
+      numberOfCharacters++;
+    }
+  }
+  return numberOfCharacters;
+};
 
 /**
  * Принимает строку в первом аргументе, и символ во втором
@@ -54,4 +87,19 @@ export const quantityOfSymbols = (string, symbol) => {};
  * @param {string} symbol
  * @returns {number}
  */
-export const quantityOfSymbolsWithIndexOf = (string, symbol) => {};
+export const quantityOfSymbolsWithIndexOf = (string, symbol) => {
+  let numberOfCharacters = 0;
+  let count = 0;
+  string = string.toLocaleLowerCase();
+  symbol = symbol.toLocaleLowerCase();
+
+  while (true) {
+    if(string.indexOf(symbol, count) === -1) {
+      break;
+    }
+    count = string.indexOf(symbol, count);
+    numberOfCharacters++;
+    count++;
+  }
+  return numberOfCharacters;
+};
